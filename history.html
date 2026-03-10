@@ -1,0 +1,84 @@
+<div class="input-box">
+  <input id="spin" type="number" placeholder="回転数" required>
+  <select id="role" required>
+    <option value="">当選役を選択</option>
+    <option>REG</option>
+    <option>赤BIG</option>
+    <option>青BIG</option>
+    <option>黒BIG</option>
+    <option>異色BIG</option>
+  </select>
+  <select id="trigger">
+    <option value="">当選契機を選択</option>
+    <option>単独</option>
+    <option>一枚役A</option>
+    <option>一枚役B</option>
+    <option>一枚役C</option>
+    <option>一枚役D</option>
+    <option>共通1枚役</option>
+    <option>ベル</option>
+    <option>リプレイ</option>
+    <option>チェリー</option>
+    <option>スイカ</option>
+    <option>特リプ</option>
+  </select>
+  <textarea id="memo" placeholder="メモ"></textarea>
+  <button onclick="addRecord()">登録</button>
+</div>
+
+<div id="record-list"></div>
+
+<script>
+const API_URL="https://script.google.com/macros/s/xxxxxxxx/exec";
+let records=[];
+
+function addRecord(){
+  const spin = Number(document.getElementById("spin").value);
+  const role = document.getElementById("role").value;
+  const trigger = document.getElementById("trigger").value;
+  const memo = document.getElementById("memo").value;
+
+  if(!spin || !role){
+    alert("回転数と当選役は必須です");
+    return;
+  }
+
+  fetch(API_URL,{
+    method:"POST",
+    body: JSON.stringify({spin, role, trigger, memo})
+  })
+  .then(()=>{ clearInput(); loadRecords(); });
+}
+
+function clearInput(){
+  document.getElementById("spin").value="";
+  document.getElementById("role").value="";
+  document.getElementById("trigger").value="";
+  document.getElementById("memo").value="";
+}
+
+function loadRecords(){
+  fetch(API_URL)
+    .then(res=>res.json())
+    .then(data=>{ records=data; render(); });
+}
+
+function render(){
+  const list = document.getElementById("record-list");
+  list.innerHTML="";
+  records.forEach(r=>{
+    const div = document.createElement("div");
+    div.innerHTML = `
+      <div>${r.date}</div>
+      <div>回転数：${r.spin}</div>
+      <div>当選役：${r.role}</div>
+      <div>当選契機：${r.trigger || "－"}</div>
+      <div>メモ：${r.memo || "－"}</div>
+      <hr>
+    `;
+    list.appendChild(div);
+  });
+}
+
+window.onload = loadRecords;
+</script>
