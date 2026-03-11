@@ -147,15 +147,37 @@ button{
 }
 
 .record{
-
-    background:#2c2c2c;
-
-    margin-top:10px;
-    padding:15px;
-
-    border-radius:12px;
-
+    margin-top:12px;
+    padding:16px;
+    border-radius:14px;
+    text-align:left;
     font-size:16px;
+}
+
+/* BIG色 */
+
+.record.red{
+    background:rgba(255,0,0,0.65);
+}
+
+.record.blue{
+    background:rgba(0,100,255,0.7);
+}
+
+.record.black{
+    background:rgba(0,0,0,0.85);
+}
+
+.record.gray{
+    background:rgba(120,120,120,0.8);
+}
+
+.record.mixed{
+    background:linear-gradient(
+        135deg,
+        rgba(255,0,0,0.75),
+        rgba(0,100,255,0.8)
+    );
 }
 
 .record.red{background:#5a1f1f;}
