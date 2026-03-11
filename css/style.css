@@ -1,112 +1,183 @@
 /* スマホ崩れ防止 */
-* {
-    box-sizing: border-box;
+*{
+    box-sizing:border-box;
 }
 
 /* 全体 */
-body {
-    margin: 0;
-    background: #1a1a1a;
-    font-family: sans-serif;
-    color: white;
+body{
+    margin:0;
+    background:#1a1a1a;
+    font-family:sans-serif;
+    color:white;
 }
 
 /* タイトル */
-.title {
-    text-align: center;
-    padding: 20px;
-    font-size: 24px;
+.title{
+    text-align:center;
+    padding:20px;
+    font-size:24px;
 }
 
 /* メニュー画面 */
-.menu {
-    max-width: 400px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    padding: 20px;
+.menu{
+    max-width:400px;
+    margin:0 auto;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    padding:20px;
 }
 
-/* メニューのボタン */
-.menu-button {
-    display: block;
-    padding: 20px;
-    background: #2c2c2c;
-    border-radius: 15px;
-    text-align: center;
-    font-size: 18px;
-    text-decoration: none;
-    color: white;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-    transition: 0.15s;
+.menu-button{
+    display:block;
+    padding:20px;
+    background:#2c2c2c;
+    border-radius:15px;
+    text-align:center;
+    font-size:18px;
+    text-decoration:none;
+    color:white;
+    box-shadow:0 4px 10px rgba(0,0,0,0.4);
+    transition:0.15s;
 }
 
-.menu-button:active {
-    transform: scale(0.97);
-    background: #3a3a3a;
+.menu-button:active{
+    transform:scale(0.97);
+    background:#3a3a3a;
 }
 
-/* サマリーグリッド */
-.menu-summary {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 12px;
-    margin: 20px;
+/* コンテンツ */
+.container{
+    max-width:500px;
+    margin:20px auto 100px auto;
+    padding:15px;
 }
 
-/* サマリーカード */
-.summary-card {
-    background: rgba(76,175,80,0.1);
-    color: #fff;
-    padding: 12px 10px;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+/* ステータス */
+.status-box{
+    background:#2c2c2c;
+    padding:15px;
+    border-radius:15px;
+    margin-bottom:15px;
+    font-size:18px;
 }
 
-.summary-card .label {
-    display: block;
-    font-size: 14px;
-    color: #ccc;
+/* 入力エリア */
+.input-box{
+    background:#2c2c2c;
+    padding:20px;
+    border-radius:15px;
 }
 
-.summary-card .value {
-    display: block;
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 4px;
+/* 入力UI */
+.input-box input,
+.input-box select,
+.input-box textarea{
+    width:100%;
+    margin-top:12px;
+    padding:14px;
+    font-size:16px;
+    border-radius:10px;
+    border:none;
+    background:#1a1a1a;
+    color:white;
+}
+
+/* 登録ボタン */
+button{
+    width:100%;
+    margin-top:15px;
+    padding:15px;
+    font-size:18px;
+    background:#3a3a3a;
+    color:white;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+}
+
+button:active{
+    background:#4a4a4a;
+}
+
+/* 履歴 */
+.record-list{
+    margin-top:20px;
+}
+
+.record{
+    margin-top:12px;
+    padding:16px;
+    border-radius:14px;
+    text-align:left;
+    font-size:16px;
+}
+
+/* BIG色 */
+.record.red{
+    background:rgba(255,0,0,0.65);
+}
+
+.record.blue{
+    background:rgba(0,100,255,0.7);
+}
+
+.record.black{
+    background:rgba(0,0,0,0.85);
+}
+
+.record.gray{
+    background:rgba(120,120,120,0.8);
+}
+
+.record.mixed{
+    background:linear-gradient(
+        135deg,
+        rgba(255,0,0,0.75),
+        rgba(0,100,255,0.8)
+    );
 }
 
 /* 下固定メニュー */
-.bottom-menu {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    background: #222;
-    padding: 6px 0;
+.bottom-menu{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    display:flex;
+    justify-content:space-around;
+    background:#222;
+    border-top:1px solid #444;
+    padding:10px 0;
 }
 
-.bottom-item {
-    color: white;
-    text-decoration: none;
-    font-size: 14px;
-    text-align: center;
+/* 下メニューアイテム */
+.bottom-item{
+    color:#aaa;
+    text-decoration:none;
+    text-align:center;
+    font-size:12px;
 }
 
-/* その他既存のスタイル残す */
-.container {
-    max-width: 500px;
-    margin: 20px auto 100px auto;
-    padding: 15px;
+.bottom-item:active{
+    color:white;
 }
 
-.status-box {
-    background: #2c2c2c;
-    padding: 15px;
-    border-radius: 15px;
-    margin-bottom: 15px;
-    font-size: 18px;
+/* --- サマリー専用 --- */
+.menu-summary{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap:12px;
+    max-width:500px;
+    margin:20px auto;
+}
+
+.summary-card{
+    background: rgba(76,175,80,0.1);
+    color: #fff;
+    padding:12px 10px;
+    border-radius:12px;
+    text-align:center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    font-weight:bold;
 }
