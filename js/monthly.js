@@ -219,3 +219,5 @@ beginAtZero:true
 })
 
 }
+document.getElementById("prev").addEventListener("click", prevMonth)
+document.getElementById("next").addEventListener("click", nextMonth)
