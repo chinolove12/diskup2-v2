@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>日報入力</title>
+
+<style>
+
+body{
+margin:0;
+padding:0;
+font-family:sans-serif;
+background:url("kame.jpg") no-repeat center center/cover;
+height:100vh;
+color:white;
+text-align:center;
+position:relative;
+}
+
+body::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.45);
+z-index:-1;
+}
+
+h1{
+font-size:60px;
+margin-top:60px;
+text-shadow:0 4px 8px black;
+}
+
+form{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:30px;
+margin-top:60px;
+padding:0 20px;
+}
+
+input{
+width:90%;
+max-width:600px;
+padding:26px;
+font-size:28px;
+border-radius:14px;
+border:none;
+text-align:center;
+}
+
+button{
+width:90%;
+max-width:600px;
+padding:40px 0;
+font-size:34px;
+font-weight:bold;
+background:rgba(76,175,80,0.9);
+color:white;
+border:none;
+border-radius:18px;
+box-shadow:0 6px 16px rgba(0,0,0,0.4);
+cursor:pointer;
+}
+
+button:hover{
+background:rgba(69,160,73,1);
+}
+
+.back-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:40%;
+max-width:300px;
+padding:25px 0;
+font-size:24px;
+font-weight:bold;
+background:rgba(76,175,80,0.9);
+color:white;
+text-decoration:none;
+border-radius:18px;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<h1>日報入力</h1>
+
+<form id="form">
+
+<input type="date" name="date" id="date" required>
+
+<input type="number" name="rotations" placeholder="回転数" required>
+
+<input type="number" name="big" placeholder="BIG" required>
+
+<input type="number" name="reg" placeholder="REG" required>
+
+<input type="number" name="difference" placeholder="差枚" required>
+
+<input type="number" name="bita" placeholder="ビタ成功率(%)">
+
+<button type="submit">保存</button>
+
+</form>
+
+<a href="monthly.html" class="back-btn">戻る</a>
+
+
+<script>
+
+const API1="https://script.google.com/macros/s/AKfycbwOMLyKToLwXzMCnl3LDphMp7FESB_bg-9aFkferoqV2D94BHVZRuxbNXkmXrGc1xgQ/exec"
+const API2="https://script.google.com/macros/s/AKfycbytHj6AGSjf4IokvfYNLTs4Qbl5sUgeQDqZagJehGmcEts5Aj_PT1XGQ1ff8VGNRONW/exec"
+
+
+/* ======================
+   URLから日付取得
+====================== */
+
+const params=new URLSearchParams(location.search)
+const date=params.get("date")
+
+if(date){
+document.getElementById("date").value=date
+}
+
+
+/* ======================
+   送信
+====================== */
+
+document.getElementById("form").addEventListener("submit",e=>{
+
+e.preventDefault()
+
+const formData=new FormData(e.target)
+
+const data={
+date:formData.get("date"),
+rotations:formData.get("rotations"),
+big:formData.get("big"),
+reg:formData.get("reg"),
+difference:formData.get("difference"),
+bita:formData.get("bita")
+}
+
+
+/* 日報シート */
+
+fetch(API1,{
+method:"POST",
+body:JSON.stringify(data)
+})
+
+
+/* カレンダー用収支 */
+
+const data2={
+machine:"ディスクアップ2",
+difference:formData.get("difference"),
+memo:"",
+date:formData.get("date")
+}
+
+fetch(API2,{
+method:"POST",
+body:JSON.stringify(data2)
+})
+
+
+.then(()=>{
+alert("保存しました")
+location.href="monthly.html"
+})
+
+.catch(()=>{
+alert("送信エラー")
+})
+
+})
+
+</script>
+
+</body>
+</html>
