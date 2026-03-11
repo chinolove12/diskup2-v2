@@ -10,25 +10,47 @@
 
 <h1 class="title">収支管理</h1>
 
-<div class="menu">
-
-  <div>
-    <a href="history.html" class="menu-button">履歴入力</a>
-    <div class="menu-info" id="info-history">
-      累計ゲーム数: -<br>
-      BIG合計: -<br>
-      REG合計: -<br>
-      BIG確率: -<br>
-      REG確率: -<br>
-      合計差枚: -<br>
-      ビタ成功率合計: -<br>
-      期待値合計: -<br>
-      欠損合計: -
-    </div>
+<!-- サマリーグリッド -->
+<div class="menu-summary">
+  <div class="summary-card">
+    <span class="label">累計ゲーム数</span>
+    <span class="value" id="totalRotations">-</span>
   </div>
-
+  <div class="summary-card">
+    <span class="label">BIG合計</span>
+    <span class="value" id="totalBIG">-</span>
+  </div>
+  <div class="summary-card">
+    <span class="label">REG合計</span>
+    <span class="value" id="totalREG">-</span>
+  </div>
+  <div class="summary-card">
+    <span class="label">BIG確率</span>
+    <span class="value" id="totalBIGRate">-</span>
+  </div>
+  <div class="summary-card">
+    <span class="label">REG確率</span>
+    <span class="value" id="totalREGRate">-</span>
+  </div>
+  <div class="summary-card">
+    <span class="label">合計差枚</span>
+    <span class="value" id="totalDifference">-</span>
+  </div>
+  <div class="summary-card">
+    <span class="label">ビタ成功率合計</span>
+    <span class="value" id="totalBita">-</span>
+  </div>
+  <div class="summary-card">
+    <span class="label">期待値合計</span>
+    <span class="value" id="totalExpect">-</span>
+  </div>
+  <div class="summary-card">
+    <span class="label">欠損合計</span>
+    <span class="value" id="totalLoss">-</span>
+  </div>
 </div>
 
+<!-- 下部ナビゲーション -->
 <div class="bottom-menu">
   <a href="index.html" class="bottom-item">🏠<br>Home</a>
   <a href="history.html" class="bottom-item">📝<br>履歴</a>
