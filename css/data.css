@@ -1,0 +1,37 @@
+table{
+margin:auto;
+border-collapse:collapse;
+background:rgba(0,0,0,0.7);
+color:white;
+width:95%;
+max-width:900px;
+}
+
+th,td{
+border:1px solid rgba(255,255,255,0.2);
+padding:10px 14px;
+text-align:center;
+font-size:16px;
+}
+
+th{
+background:#222;
+}
+
+tr:nth-child(even){
+background:rgba(255,255,255,0.05);
+}
+
+.theory{
+font-size:12px;
+color:#aaa;
+}
+
+@media (max-width:600px){
+
+th,td{
+font-size:12px;
+padding:6px;
+}
+
+}
