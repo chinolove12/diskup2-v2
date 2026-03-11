@@ -155,6 +155,35 @@ html+="</tr>"
 
 document.getElementById("calendar").innerHTML=html
 
+/* ======================
+   月収支・勝率計算
+====================== */
+
+let total=0
+let winDays=0
+let playDays=0
+
+Object.keys(monthlyData).forEach(d=>{
+
+if(d.startsWith(`${currentYear}-${String(currentMonth+1).padStart(2,"0")}`)){
+
+const diff=Number(monthlyData[d])
+
+total+=diff
+playDays++
+
+if(diff>0){
+winDays++
+}
+
+}
+
+})
+
+const winRate=playDays?Math.round(winDays/playDays*100):0
+
+document.getElementById("monthTotal").textContent=`月収支：${total}`
+document.getElementById("winRate").textContent=`勝率：${winRate}%`
 }
 
 
