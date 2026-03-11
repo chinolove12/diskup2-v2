@@ -106,14 +106,12 @@ button:hover {
 <a href="monthly.html" class="back-btn">戻る</a>
 
 <script>
-const API1 = "https://script.google.com/macros/s/AKfycbwgKvIbll6jwnoy0QfbjqI-QP3Z8GtHHCKja3fB2pTHtMLJ8AJQHadpEkcFKganiJc/exec?mode=diary";
+const API1 = "https://script.google.com/macros/s/AKfycbwgKvIbll6jwnoy0QfbjqI-QP3Z8GtHHCKja3fB2pTHtMLJ8AJQHadpEkcFKganiJc/exec";
 
 // URLから日付取得
 const params = new URLSearchParams(location.search);
 const date = params.get("date");
-if (date) {
-  document.getElementById("date").value = date;
-}
+if (date) document.getElementById("date").value = date;
 
 // 送信
 document.getElementById("form").addEventListener("submit", e => {
@@ -132,12 +130,17 @@ document.getElementById("form").addEventListener("submit", e => {
 
   fetch(API1, {
     method: "POST",
-    headers: { "Content-Type": "application/json" }, // ←必須
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
   })
-  .then(() => {
-    alert("保存しました");
-    location.href = "monthly.html"; // ←保存後に戻る
+  .then(response => response.json())
+  .then(res => {
+    if(res.status === "ok"){
+      alert("保存しました");
+      location.href = "monthly.html";
+    } else {
+      alert("保存に失敗しました");
+    }
   })
   .catch(() => {
     alert("送信エラー");
