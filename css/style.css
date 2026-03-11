@@ -208,3 +208,52 @@ button:active{
 
     color:white;
 }
+
+.summary-box {
+  background: rgba(76,175,80,0.8);
+  color: white;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 16px;
+  max-width: 600px;
+  text-align: left;
+  font-size: 16px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+.summary-box div {
+  margin-bottom: 6px;
+}
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+.menu-button {
+  background: #444;
+  color: white;
+  text-decoration: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: bold;
+  display: inline-block;
+}
+.menu-button:hover {
+  background: #555;
+}
+.bottom-menu {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background: #222;
+  padding: 6px 0;
+}
+.bottom-item {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  text-align: center;
+}
