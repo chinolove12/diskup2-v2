@@ -109,6 +109,13 @@ const diff=monthlyData[dateStr]
 let profitHTML=""
 let cellClass=""
 
+const today=new Date()
+const todayStr=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,"0")}-${String(today.getDate()).padStart(2,"0")}`
+
+if(dateStr===todayStr){
+cellClass+=" today"
+}
+
 if(diff!==undefined){
 
 const sign=diff>0?"+":""
