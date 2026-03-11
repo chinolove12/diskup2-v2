@@ -1,4 +1,4 @@
-const API="https://script.google.com/macros/s/AKfycbypgrprmoFKKr7cCxYn51NhEg9C5D-kwEhQhzBDrwtL5vFxc_gqWB1DnohvYssJUHA/exec?mode=matrix"
+const API="https://script.google.com/macros/s/AKfycbw_TxUk_XDnVgpkR5wprnzBAyLOW4D1_R98USUTeS-Qj2z0c-ff0MKgPj86UKJwlMeC/exec?mode=matrix"
 
 const flags=[
 "単独",
