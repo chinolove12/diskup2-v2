@@ -15,6 +15,7 @@ return
 }
 
 const data={
+  mode: "records", // ここが必須
 spin:Number(spin),
 role:role,
 triggers:triggers,
