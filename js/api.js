@@ -1,4 +1,4 @@
-const API_URL="https://script.google.com/macros/s/AKfycbxHAqnH7I5QW7-ZcIrJltjhgdGirI8JpZDfr6qvFiQaxkKIC0E_bjoCY3SmN7osx1eO/exec?mode=records"
+const API_URL="https://script.google.com/macros/s/AKfycbx6YwdFjjnO8h9prGPlLeAZX97XUblQUDItY8NV2e-5zLNq6n-ouFUww4aZLf7bMhcw/exec?mode=records"
 
 let records=[]
 
