@@ -136,7 +136,7 @@ let cls=""
 if(w===0) cls="sun"
 if(w===6) cls="sat"
 
-html+=`<td class="${cls} ${cellClass}">${d}${profitHTML}</td>`
+html+=`<td class="${cls} ${cellClass}" onclick="location.href='nippo.html?date=${dateStr}'">${d}${profitHTML}</td>`
 
 if(w===6 && d!==totalDays){
 html+="</tr><tr>"
