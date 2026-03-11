@@ -45,8 +45,8 @@ if(date) document.getElementById("date").value = date;
 document.getElementById("form").addEventListener("submit", e => {
   e.preventDefault();
   const formData = new FormData(e.target);
-
-  const data = {
+  
+  const data={
     mode: "diary",
     date: formData.get("date"),
     rotations: formData.get("rotations"),
@@ -54,16 +54,16 @@ document.getElementById("form").addEventListener("submit", e => {
     reg: formData.get("reg"),
     difference: formData.get("difference"),
     bita: formData.get("bita")
-  };
-
+  }
+  
   fetch(API_URL,{
-    method:"POST",
-    body:JSON.stringify(data)
-  }).catch(()=>{ /* エラー無視 */ });
-
-  // 即画面遷移
-  location.href = "monthly.html";
-});                                            
+  method:"POST",
+  body:JSON.stringify(data)
+  })         
+  .then(()=>{
+location.href = "monthly.html";
+})
+  
 </script>
 
 </body>
