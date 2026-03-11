@@ -134,36 +134,60 @@ document.getElementById("winRate").textContent=`勝率：${rate}%`
 }
 
 
+let chart = null
+
 function drawGraph(){
 
-const year=current.getFullYear()
-const month=String(current.getMonth()+1).padStart(2,"0")
+const year=currentYear
+const month=currentMonth+1
 
-const labels=[]
-const values=[]
+const labels=["0"]
+const values=[0]
 
-Object.entries(monthlyData).forEach(([d,v])=>{
+let total=0
 
-if(d.startsWith(`${year}-${month}`)){
+Object.keys(monthlyData)
+.sort()
+.forEach(d=>{
 
-labels.push(d.slice(8))
-values.push(v)
+if(d.startsWith(`${year}-${String(month).padStart(2,"0")}`)){
+
+const day=d.slice(8)
+
+total += Number(monthlyData[d])
+
+labels.push(day)
+values.push(total)
 
 }
 
 })
 
-new Chart(document.getElementById("chart"),{
+const ctx=document.getElementById("chart")
+
+if(chart){
+chart.destroy()
+}
+
+chart=new Chart(ctx,{
 
 type:"line",
 
 data:{
 labels:labels,
 datasets:[{
-label:"差枚",
+label:"累計差枚",
 data:values,
 tension:0.3
 }]
+},
+
+options:{
+scales:{
+y:{
+beginAtZero:true
+}
+}
 }
 
 })
