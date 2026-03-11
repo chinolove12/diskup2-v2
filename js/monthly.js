@@ -1,6 +1,7 @@
 const API="https://script.google.com/macros/s/AKfycbyoJfkCuM_EmskTYi_0s42YEPej75clTLeZhn09QMg-7jZYUyk9Qpib7Xmi1hyYbzRU/exec"
 
 let monthlyData={}
+let current=new Date()
 
 fetch(API)
 .then(r=>r.json())
@@ -10,20 +11,33 @@ data.forEach(d=>{
 monthlyData[d.date]=d.diff
 })
 
-drawCalendar()
-drawGraph()
+draw()
 
 })
-.catch(e=>{
-console.log(e)
-})
+
+document.getElementById("prev").onclick=()=>{
+current.setMonth(current.getMonth()-1)
+draw()
+}
+
+document.getElementById("next").onclick=()=>{
+current.setMonth(current.getMonth()+1)
+draw()
+}
+
+function draw(){
+
+drawCalendar()
+drawSummary()
+drawGraph()
+
+}
 
 
 function drawCalendar(){
 
-const now=new Date()
-const year=now.getFullYear()
-const month=now.getMonth()
+const year=current.getFullYear()
+const month=current.getMonth()
 
 document.getElementById("title").textContent=`${year}年 ${month+1}月`
 
@@ -47,39 +61,38 @@ else html+=`<th>${d}</th>`
 
 html+="</tr><tr>"
 
-for(let i=0;i<startWeek;i++){
-html+="<td></td>"
-}
+for(let i=0;i<startWeek;i++) html+="<td></td>"
 
 for(let d=1;d<=totalDays;d++){
 
-const dateStr=
-`${year}-${String(month+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`
+const dateStr=`${year}-${String(month+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`
 
 const diff=monthlyData[dateStr]
 
 let profitHTML=""
+let cls=""
 
 if(diff!==undefined){
 
-const cls=diff>=0?"plus":"minus"
 const sign=diff>0?"+":""
+const pcls=diff>=0?"plus":"minus"
 
-profitHTML=`<div class="profit ${cls}">${sign}${diff}</div>`
+profitHTML=`<div class="profit ${pcls}">${sign}${diff}</div>`
+
+cls=diff>=0?"win":"lose"
 
 }
 
 const w=(startWeek+d-1)%7
 
-let cls=""
-if(w===0) cls="sun"
-if(w===6) cls="sat"
+let dayCls=""
 
-html+=`<td class="${cls}">${d}${profitHTML}</td>`
+if(w===0) dayCls="sun"
+if(w===6) dayCls="sat"
 
-if(w===6 && d!==totalDays){
-html+="</tr><tr>"
-}
+html+=`<td class="${dayCls} ${cls}">${d}${profitHTML}</td>`
+
+if(w===6 && d!==totalDays) html+="</tr><tr>"
 
 }
 
@@ -90,21 +103,51 @@ document.getElementById("calendar").innerHTML=html
 }
 
 
+function drawSummary(){
+
+const year=current.getFullYear()
+const month=String(current.getMonth()+1).padStart(2,"0")
+
+let total=0
+let win=0
+let lose=0
+
+Object.entries(monthlyData).forEach(([d,v])=>{
+
+if(d.startsWith(`${year}-${month}`)){
+
+total+=v
+
+if(v>=0) win++
+else lose++
+
+}
+
+})
+
+document.getElementById("monthTotal").textContent=`月収支：${total}`
+
+const rate=win+lose?Math.round(win/(win+lose)*100):0
+
+document.getElementById("winRate").textContent=`勝率：${rate}%`
+
+}
+
+
 function drawGraph(){
 
-const now=new Date()
-const year=now.getFullYear()
-const month=String(now.getMonth()+1).padStart(2,"0")
+const year=current.getFullYear()
+const month=String(current.getMonth()+1).padStart(2,"0")
 
 const labels=[]
 const values=[]
 
-Object.keys(monthlyData).forEach(d=>{
+Object.entries(monthlyData).forEach(([d,v])=>{
 
 if(d.startsWith(`${year}-${month}`)){
 
 labels.push(d.slice(8))
-values.push(monthlyData[d])
+values.push(v)
 
 }
 
@@ -112,13 +155,14 @@ values.push(monthlyData[d])
 
 new Chart(document.getElementById("chart"),{
 
-type:"bar",
+type:"line",
 
 data:{
 labels:labels,
 datasets:[{
 label:"差枚",
-data:values
+data:values,
+tension:0.3
 }]
 }
 
