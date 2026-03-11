@@ -1,4 +1,4 @@
-const SUMMARY_API = "https://script.google.com/macros/s/AKfycbwqPhvWPfQWY-VnolZDA1N69j0Q8oWhl0EDOUALmC2t1gGuTbMYhHVk85zuopPAv2hx/exec?mode=summary";
+const SUMMARY_API = "https://script.google.com/macros/s/AKfycbwjF8qz_ZOQJLbczkAuUS_xFb_OCg-W0QRSL7X8mclh_cknMX_l_J_zjU6zTl3vcWPK/exec?mode=summary";
 
 window.addEventListener("DOMContentLoaded", () => {
   const summaryEl = document.getElementById("summary");
