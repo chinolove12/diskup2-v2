@@ -6,15 +6,10 @@
 <title>日報入力</title>
 <style>
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-  background: #222; /* 背景画像が404なら一旦色で代用 */
-  color: white;
-  text-align: center;
-  position: relative;
+  margin: 0; padding: 0; font-family: sans-serif;
+  background: #222; color:white; text-align:center; position:relative;
 }
-h1 { font-size: 60px; margin-top: 60px; text-shadow:0 4px 8px black; }
+h1 { font-size:60px; margin-top:60px; text-shadow:0 4px 8px black; }
 form { display:flex; flex-direction:column; align-items:center; gap:30px; margin-top:60px; padding:0 20px; }
 input { width:90%; max-width:600px; padding:26px; font-size:28px; border-radius:14px; border:none; text-align:center; }
 button { width:90%; max-width:600px; padding:40px 0; font-size:34px; font-weight:bold; background:rgba(76,175,80,0.9); color:white; border:none; border-radius:18px; cursor:pointer; }
@@ -46,33 +41,29 @@ const params = new URLSearchParams(location.search);
 const date = params.get("date");
 if(date) document.getElementById("date").value = date;
 
-// 送信（records 方式でプリフライトなし）
+// diary 用送信
 document.getElementById("form").addEventListener("submit", e => {
   e.preventDefault();
   const formData = new FormData(e.target);
 
-  // records と同じフォーマットに変換
   const data = {
-    mode: "records", 
-    spin: Number(formData.get("rotations")),
-    role: "日報", // BIG/REGの区別が不要なら固定
-    triggers: "手動",
-    memo: `BIG:${formData.get("big")} REG:${formData.get("reg")} 差枚:${formData.get("difference")} ビタ:${formData.get("bita")}`
+    mode: "diary",
+    date: formData.get("date"),
+    rotations: formData.get("rotations"),
+    big: formData.get("big"),
+    reg: formData.get("reg"),
+    difference: formData.get("difference"),
+    bita: formData.get("bita")
   };
 
-  // Content-Type を指定しないのでプリフライトなし
-  fetch(API_URL, {
-    method: "POST",
-    body: JSON.stringify(data)
-  })
-  .then(() => {
-    alert("保存しました");
-    location.href = "monthly.html";
-  })
-  .catch(() => {
-    alert("送信エラー");
-  });
-});
+  fetch(API_URL,{
+    method:"POST",
+    body:JSON.stringify(data)
+    })
+.then(()=>{
+})
+}
+                                                 
 </script>
 
 </body>
