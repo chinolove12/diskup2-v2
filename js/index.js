@@ -1,21 +1,20 @@
-const API_SUMMARY = "https://script.google.com/macros/s/AKfycbwjF8qz_ZOQJLbczkAuUS_xFb_OCg-W0QRSL7X8mclh_cknMX_l_J_zjU6zTl3vcWPK/exec?mode=summary"; // GAS URLに置換
+const API_SUMMARY = "https://script.google.com/macros/s/AKfycbwjF8qz_ZOQJLbczkAuUS_xFb_OCg-W0QRSL7X8mclh_cknMX_l_J_zjU6zTl3vcWPK/exec?mode=summary"; 
 
-// summaryを取得して履歴入力下に表示
 fetch(API_SUMMARY)
   .then(res => res.json())
   .then(summary => {
     const el = document.getElementById("info-history");
     if(el){
       el.innerHTML = `
-        累計ゲーム数: ${summary.B3}<br>
-        BIG合計: ${summary.C3}<br>
-        REG合計: ${summary.D3}<br>
-        BIG確率: ${summary.E3}<br>
-        REG確率: ${summary.F3}<br>
-        合計差枚: ${summary.H3}<br>
-        ビタ成功率合計: ${summary.J3}<br>
-        期待値合計: ${summary.K3}<br>
-        欠損合計: ${summary.L3}
+        累計ゲーム数: ${summary.totalRotations}<br>
+        BIG合計: ${summary.totalBIG}<br>
+        REG合計: ${summary.totalREG}<br>
+        BIG確率: ${summary.totalBIGRate.toFixed(2)}<br>
+        REG確率: ${summary.totalREGRate.toFixed(2)}<br>
+        合計差枚: ${summary.totalDifference}<br>
+        ビタ成功率合計: ${(summary.totalBita*100).toFixed(2)}%<br>
+        期待値合計: ${summary.totalExpect.toFixed(2)}<br>
+        欠損合計: ${summary.totalLoss.toFixed(2)}
       `;
     }
   })
