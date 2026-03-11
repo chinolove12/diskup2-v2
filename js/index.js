@@ -1,18 +1,27 @@
-const API_SUMMARY = "https://script.google.com/macros/s/AKfycbwjF8qz_ZOQJLbczkAuUS_xFb_OCg-W0QRSL7X8mclh_cknMX_l_J_zjU6zTl3vcWPK/exec?mode=summary"; 
+const API_SUMMARY = "https://script.google.com/macros/s/AKfycbwjF8qz_ZOQJLbczkAuUS_xFb_OCg-W0QRSL7X8mclh_cknMX_l_J_zjU6zTl3vcWPK/exec?mode=summary";
 
+// summaryを取得してサマリーカードに反映
 fetch(API_SUMMARY)
   .then(res => res.json())
   .then(summary => {
-    document.getElementById("totalRotations").textContent = summary.totalRotations;
-    document.getElementById("totalBIG").textContent = summary.totalBIG;
-    document.getElementById("totalREG").textContent = summary.totalREG;
-    document.getElementById("totalBIGRate").textContent = summary.totalBIGRate.toFixed(2);
-    document.getElementById("totalREGRate").textContent = summary.totalREGRate.toFixed(2);
-    document.getElementById("totalDifference").textContent = summary.totalDifference;
-    document.getElementById("totalBita").textContent = (summary.totalBita*100).toFixed(1) + '%';
-    document.getElementById("totalExpect").textContent = summary.totalExpect.toFixed(0);
-    document.getElementById("totalLoss").textContent = summary.totalLoss.toFixed(0);
+    const keys = [
+      "totalRotations",
+      "totalBIG",
+      "totalREG",
+      "totalBIGRate",
+      "totalREGRate",
+      "totalDifference",
+      "totalBita",
+      "totalExpect",
+      "totalLoss"
+    ];
+    const cards = document.querySelectorAll(".summary-card");
+    keys.forEach((key, i) => {
+      if(cards[i]){
+        let val = summary[key];
+        if(typeof val === "number") val = val.toFixed(2);
+        cards[i].innerHTML = `${cards[i].textContent.split(":")[0]}: ${val}`;
+      }
+    });
   })
-  .catch(err => {
-    console.error("summary取得エラー", err);
-  });
+  .catch(err => console.error("summary取得エラー", err));
