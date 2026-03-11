@@ -1,12 +1,30 @@
 .calendar-box{
-background:rgba(0,0,0,0.6);
+background:rgba(0,0,0,0.65);
 padding:20px;
 border-radius:16px;
 }
 
-#title{
-font-size:22px;
+.calendar-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
 margin-bottom:10px;
+}
+
+.calendar-header button{
+background:#333;
+color:white;
+border:none;
+padding:8px 14px;
+font-size:18px;
+border-radius:8px;
+}
+
+.summary{
+display:flex;
+justify-content:space-around;
+margin-bottom:12px;
+font-size:16px;
 }
 
 table{
@@ -17,21 +35,34 @@ table-layout:fixed;
 
 th,td{
 border:1px solid rgba(255,255,255,0.2);
-padding:6px;
 height:70px;
 vertical-align:top;
+padding:6px;
 }
 
-.sun{color:#ff7070;}
-.sat{color:#7aa6ff;}
+.sun{color:#ff6b6b}
+.sat{color:#7aa6ff}
 
 .profit{
 font-size:12px;
 margin-top:4px;
 }
 
-.plus{color:#ff7070;}
-.minus{color:#7aa6ff;}
+.plus{
+color:#ff6b6b
+}
+
+.minus{
+color:#7aa6ff
+}
+
+.win{
+background:rgba(255,0,0,0.2)
+}
+
+.lose{
+background:rgba(0,100,255,0.2)
+}
 
 canvas{
 background:white;
