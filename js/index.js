@@ -1,25 +1,41 @@
-const SUMMARY_API = "https://script.google.com/macros/s/AKfycbwjF8qz_ZOQJLbczkAuUS_xFb_OCg-W0QRSL7X8mclh_cknMX_l_J_zjU6zTl3vcWPK/exec?mode=summary";
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>収支管理</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
 
-window.addEventListener("DOMContentLoaded", () => {
-  const summaryEl = document.getElementById("summary");
+<h1 class="title">収支管理</h1>
 
-  fetch(SUMMARY_API)
-    .then(res => res.json())
-    .then(data => {
-      summaryEl.innerHTML = `
-        <div>累計ゲーム数: ${data.totalRotations}</div>
-        <div>BIG合計: ${data.totalBIG}</div>
-        <div>REG合計: ${data.totalREG}</div>
-        <div>BIG確率: ${data.totalBIGRate}</div>
-        <div>REG確率: ${data.totalREGRate}</div>
-        <div>合計差枚: ${data.totalDifference}</div>
-        <div>ビタ成功率合計: ${data.totalBita}</div>
-        <div>期待値合計: ${data.totalExpect}</div>
-        <div>欠損合計: ${data.totalLoss}</div>
-      `;
-    })
-    .catch(err => {
-      console.error(err);
-      summaryEl.innerHTML = `<div>データ取得エラー</div>`;
-    });
-});
+<div class="menu">
+
+  <div>
+    <a href="history.html" class="menu-button">履歴入力</a>
+    <div class="menu-info" id="info-history">
+      累計ゲーム数: -<br>
+      BIG合計: -<br>
+      REG合計: -<br>
+      BIG確率: -<br>
+      REG確率: -<br>
+      合計差枚: -<br>
+      ビタ成功率合計: -<br>
+      期待値合計: -<br>
+      欠損合計: -
+    </div>
+  </div>
+
+</div>
+
+<div class="bottom-menu">
+  <a href="index.html" class="bottom-item">🏠<br>Home</a>
+  <a href="history.html" class="bottom-item">📝<br>履歴</a>
+  <a href="monthly.html" class="bottom-item">📅<br>カレンダー</a>
+  <a href="data.html" class="bottom-item">📊<br>データ</a>
+</div>
+
+<script src="js/index.js"></script>
+</body>
+</html>
