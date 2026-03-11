@@ -38,3 +38,28 @@ body{
 .menu-button:active{
     background:#4a4a4a;
 }
+
+.bottom-menu{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+
+    display:flex;
+    justify-content:space-around;
+
+    background:#242424;
+    border-top:1px solid #444;
+
+    padding:10px 0;
+}
+
+.bottom-item{
+    color:#ddd;
+    text-decoration:none;
+    font-size:14px;
+}
+
+.bottom-item:active{
+    color:white;
+}
