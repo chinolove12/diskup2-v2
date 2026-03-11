@@ -1,65 +1,90 @@
 body{
     margin:0;
-    background:#1b1b1b;
+    background:#1a1a1a;
     font-family:sans-serif;
-    color:#ffffff;
+    color:white;
 }
+
+/* タイトル */
+
+.title{
+    text-align:center;
+    padding:20px;
+    font-size:24px;
+}
+
+/* メインメニュー */
 
 .menu{
     max-width:400px;
-    margin:40px auto;
+    margin:0 auto;
     display:flex;
     flex-direction:column;
     gap:15px;
-    padding:0 15px;
+    padding:20px;
 }
 
+/* ボタン */
+
 .menu-button{
+
     display:block;
     padding:20px;
+
+    background:#2c2c2c;
+    border-radius:15px;
+
     text-align:center;
-
-    background:#2f2f2f;
-    color:#ffffff;
-
-    text-decoration:none;
     font-size:18px;
 
-    border-radius:12px;
-    border:1px solid #444;
+    text-decoration:none;
+    color:white;
+
+    box-shadow:0 4px 10px rgba(0,0,0,0.4);
 
     transition:0.15s;
 }
 
-.menu-button:hover{
+.menu-button:active{
+
+    transform:scale(0.97);
     background:#3a3a3a;
 }
 
-.menu-button:active{
-    background:#4a4a4a;
-}
+/* 下ナビ */
 
 .bottom-menu{
+
     position:fixed;
     bottom:0;
     left:0;
+
     width:100%;
 
     display:flex;
     justify-content:space-around;
 
-    background:#242424;
+    background:#222;
+
     border-top:1px solid #444;
 
     padding:10px 0;
 }
 
+/* ナビアイテム */
+
 .bottom-item{
-    color:#ddd;
+
+    color:#aaa;
+
     text-decoration:none;
-    font-size:14px;
+
+    text-align:center;
+
+    font-size:12px;
 }
 
 .bottom-item:active{
+
     color:white;
 }
