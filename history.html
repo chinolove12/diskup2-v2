@@ -1,84 +1,214 @@
-<div class="input-box">
-  <input id="spin" type="number" placeholder="回転数" required>
-  <select id="role" required>
-    <option value="">当選役を選択</option>
-    <option>REG</option>
-    <option>赤BIG</option>
-    <option>青BIG</option>
-    <option>黒BIG</option>
-    <option>異色BIG</option>
-  </select>
-  <select id="trigger">
-    <option value="">当選契機を選択</option>
-    <option>単独</option>
-    <option>一枚役A</option>
-    <option>一枚役B</option>
-    <option>一枚役C</option>
-    <option>一枚役D</option>
-    <option>共通1枚役</option>
-    <option>ベル</option>
-    <option>リプレイ</option>
-    <option>チェリー</option>
-    <option>スイカ</option>
-    <option>特リプ</option>
-  </select>
-  <textarea id="memo" placeholder="メモ"></textarea>
-  <button onclick="addRecord()">登録</button>
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>当選履歴</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<h1 class="title">当選履歴</h1>
+
+<div class="container">
+
+<div class="status-box" id="status">
+合計ゲーム数：0<br>
+BIG合計：0<br>
+REG合計：0<br>
+BIG確率：-<br>
+REG確率：-
 </div>
 
-<div id="record-list"></div>
+<div class="input-box">
+
+<input id="spin" type="number" placeholder="回転数">
+
+<select id="role">
+<option value="">当選役を選択</option>
+<option>REG</option>
+<option>赤BIG</option>
+<option>青BIG</option>
+<option>黒BIG</option>
+<option>異色BIG</option>
+</select>
+
+<select id="triggers">
+<option value="">当選契機を選択</option>
+<option>単独</option>
+<option>一枚役A</option>
+<option>一枚役B</option>
+<option>一枚役C</option>
+<option>一枚役D</option>
+<option>共通１枚役</option>
+<option>ベル</option>
+<option>リプレイ</option>
+<option>チェリー</option>
+<option>スイカ</option>
+<option>特リプ</option>
+</select>
+
+<textarea id="memo" rows="3" placeholder="メモ"></textarea>
+
+<button onclick="addRecord()">登録</button>
+
+</div>
+
+<div class="record-list" id="list"></div>
+
+</div>
+
+<!-- 下固定メニュー -->
+
+<div class="bottom-menu">
+
+<a href="index.html" class="bottom-item">
+🏠<br>Home
+</a>
+
+<a href="history.html" class="bottom-item">
+📝<br>履歴
+</a>
+
+<a href="monthly.html" class="bottom-item">
+📅<br>カレンダー
+</a>
+
+<a href="data.html" class="bottom-item">
+📊<br>データ
+</a>
+
+</div>
 
 <script>
-const API_URL="https://script.google.com/macros/s/xxxxxxxx/exec";
-let records=[];
+
+const API_URL="https://script.google.com/macros/s/AKfycbw_XOJtSlKNEf59vvZ6Vvzmh0rGgVvP4hLZm9LK5otTFgO2UKhwLlu8UwNVsnAHvgi1/exec"
+
+let records=[]
 
 function addRecord(){
-  const spin = Number(document.getElementById("spin").value);
-  const role = document.getElementById("role").value;
-  const trigger = document.getElementById("trigger").value;
-  const memo = document.getElementById("memo").value;
 
-  if(!spin || !role){
-    alert("回転数と当選役は必須です");
-    return;
-  }
+const spin=document.getElementById("spin").value
+const role=document.getElementById("role").value
+const triggers=document.getElementById("triggers").value
+const memo=document.getElementById("memo").value
 
-  fetch(API_URL,{
-    method:"POST",
-    body: JSON.stringify({spin, role, trigger, memo})
-  })
-  .then(()=>{ clearInput(); loadRecords(); });
+if(!spin||!role){
+alert("回転数 と 当選役 は必須です")
+return
+}
+
+const data={
+spin:Number(spin),
+role:role,
+triggers:triggers,
+memo:memo
+}
+
+fetch(API_URL,{
+method:"POST",
+body:JSON.stringify(data)
+})
+.then(()=>{
+clearInput()
+loadRecords()
+})
+
 }
 
 function clearInput(){
-  document.getElementById("spin").value="";
-  document.getElementById("role").value="";
-  document.getElementById("trigger").value="";
-  document.getElementById("memo").value="";
+
+document.getElementById("spin").value=""
+document.getElementById("role").value=""
+document.getElementById("triggers").value=""
+document.getElementById("memo").value=""
+
 }
 
 function loadRecords(){
-  fetch(API_URL)
-    .then(res=>res.json())
-    .then(data=>{ records=data; render(); });
+
+fetch(API_URL)
+.then(res=>res.json())
+.then(data=>{
+
+records=data.map(r=>({
+spin:r[1],
+role:r[2],
+triggers:r[3],
+memo:r[4]
+}))
+
+render()
+
+})
+
+}
+
+function getColorClass(role){
+
+switch(role){
+case "赤BIG": return "red"
+case "青BIG": return "blue"
+case "黒BIG": return "black"
+case "REG": return "gray"
+case "異色BIG": return "mixed"
+default: return ""
+}
+
 }
 
 function render(){
-  const list = document.getElementById("record-list");
-  list.innerHTML="";
-  records.forEach(r=>{
-    const div = document.createElement("div");
-    div.innerHTML = `
-      <div>${r.date}</div>
-      <div>回転数：${r.spin}</div>
-      <div>当選役：${r.role}</div>
-      <div>当選契機：${r.trigger || "－"}</div>
-      <div>メモ：${r.memo || "－"}</div>
-      <hr>
-    `;
-    list.appendChild(div);
-  });
+
+const list=document.getElementById("list")
+list.innerHTML=""
+
+records.forEach(r=>{
+
+const div=document.createElement("div")
+div.className="record "+getColorClass(r.role)
+
+div.innerHTML=`
+<div>回転数：${r.spin}</div>
+<div>当選役：${r.role}</div>
+<div>当選契機：${r.triggers || "－"}</div>
+<div>メモ：${r.memo || "－"}</div>
+`
+
+list.appendChild(div)
+
+})
+
+updateStatus()
+
 }
 
-window.onload = loadRecords;
+function updateStatus(){
+
+const totalGames=records.reduce((s,r)=>s+Number(r.spin),0)
+
+const bigCount=records.filter(r=>r.role.includes("BIG")).length
+const regCount=records.filter(r=>r.role==="REG").length
+
+const bigProb=bigCount?`1/${Math.round(totalGames/bigCount)}`:"-"
+const regProb=regCount?`1/${Math.round(totalGames/regCount)}`:"-"
+
+document.getElementById("status").innerHTML=
+`合計ゲーム数：${totalGames}<br>
+BIG合計：${bigCount}<br>
+REG合計：${regCount}<br>
+BIG確率：${bigProb}<br>
+REG確率：${regProb}`
+
+}
+
+window.onload=loadRecords
+
 </script>
+
+</body>
+</html>
