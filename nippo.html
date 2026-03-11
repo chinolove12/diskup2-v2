@@ -122,8 +122,8 @@ border-radius:18px;
 
 <script>
 
-const API1="https://script.google.com/macros/s/AKfycbwOMLyKToLwXzMCnl3LDphMp7FESB_bg-9aFkferoqV2D94BHVZRuxbNXkmXrGc1xgQ/exec"
-const API2="https://script.google.com/macros/s/AKfycbytHj6AGSjf4IokvfYNLTs4Qbl5sUgeQDqZagJehGmcEts5Aj_PT1XGQ1ff8VGNRONW/exec"
+const API1="https://script.google.com/macros/s/AKfycbwgKvIbll6jwnoy0QfbjqI-QP3Z8GtHHCKja3fB2pTHtMLJ8AJQHadpEkcFKganiJc/exec?mode=diary"
+//const API2="https://script.google.com/macros/s/AKfycbytHj6AGSjf4IokvfYNLTs4Qbl5sUgeQDqZagJehGmcEts5Aj_PT1XGQ1ff8VGNRONW/exec"
 
 
 /* ======================
@@ -149,6 +149,7 @@ e.preventDefault()
 const formData=new FormData(e.target)
 
 const data={
+mode: "diary", // ←必須
 date:formData.get("date"),
 rotations:formData.get("rotations"),
 big:formData.get("big"),
@@ -175,10 +176,10 @@ memo:"",
 date:formData.get("date")
 }
 
-fetch(API2,{
+/*fetch(API2,{
 method:"POST",
 body:JSON.stringify(data2)
-})
+})*/
 
 
 .then(()=>{
