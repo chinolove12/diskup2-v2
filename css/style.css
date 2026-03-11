@@ -1,3 +1,11 @@
+/* スマホ崩れ防止 */
+
+*{
+    box-sizing:border-box;
+}
+
+/* 全体 */
+
 body{
     margin:0;
     background:#1a1a1a;
@@ -13,7 +21,7 @@ body{
     font-size:24px;
 }
 
-/* メインメニュー */
+/* メニュー画面 */
 
 .menu{
     max-width:400px;
@@ -23,8 +31,6 @@ body{
     gap:15px;
     padding:20px;
 }
-
-/* ボタン */
 
 .menu-button{
 
@@ -51,49 +57,15 @@ body{
     background:#3a3a3a;
 }
 
-/* 下ナビ */
-
-.bottom-menu{
-
-    position:fixed;
-    bottom:0;
-    left:0;
-
-    width:100%;
-
-    display:flex;
-    justify-content:space-around;
-
-    background:#222;
-
-    border-top:1px solid #444;
-
-    padding:10px 0;
-}
-
-/* ナビアイテム */
-
-.bottom-item{
-
-    color:#aaa;
-
-    text-decoration:none;
-
-    text-align:center;
-
-    font-size:12px;
-}
-
-.bottom-item:active{
-
-    color:white;
-}
+/* コンテンツ */
 
 .container{
     max-width:500px;
-    margin:20px auto 80px auto;
+    margin:20px auto 100px auto;
     padding:15px;
 }
+
+/* ステータス */
 
 .status-box{
     background:#2c2c2c;
@@ -103,19 +75,24 @@ body{
     font-size:18px;
 }
 
+/* 入力エリア */
+
 .input-box{
     background:#2c2c2c;
     padding:20px;
     border-radius:15px;
 }
 
+/* 入力UI */
+
 .input-box input,
 .input-box select,
 .input-box textarea{
 
     width:100%;
-    margin-top:10px;
-    padding:12px;
+    margin-top:12px;
+
+    padding:14px;
 
     font-size:16px;
 
@@ -125,6 +102,8 @@ body{
     background:#1a1a1a;
     color:white;
 }
+
+/* 登録ボタン */
 
 button{
 
@@ -140,17 +119,29 @@ button{
 
     border:none;
     border-radius:12px;
+
+    cursor:pointer;
 }
+
+button:active{
+
+    background:#4a4a4a;
+}
+
+/* 履歴 */
 
 .record-list{
     margin-top:20px;
 }
 
 .record{
+
     margin-top:12px;
     padding:16px;
+
     border-radius:14px;
     text-align:left;
+
     font-size:16px;
 }
 
@@ -180,10 +171,40 @@ button{
     );
 }
 
-.record.red{background:#5a1f1f;}
-.record.blue{background:#1f3f5a;}
-.record.black{background:#111;}
-.record.gray{background:#444;}
-.record.mixed{
-background:linear-gradient(135deg,#7a2a2a,#2a4a7a);
+/* 下固定メニュー */
+
+.bottom-menu{
+
+    position:fixed;
+    bottom:0;
+    left:0;
+
+    width:100%;
+
+    display:flex;
+    justify-content:space-around;
+
+    background:#222;
+
+    border-top:1px solid #444;
+
+    padding:10px 0;
+}
+
+/* 下メニューアイテム */
+
+.bottom-item{
+
+    color:#aaa;
+
+    text-decoration:none;
+
+    text-align:center;
+
+    font-size:12px;
+}
+
+.bottom-item:active{
+
+    color:white;
 }
