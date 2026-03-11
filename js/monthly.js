@@ -1,4 +1,4 @@
-const API="https://script.google.com/macros/s/AKfycbyoJfkCuM_EmskTYi_0s42YEPej75clTLeZhn09QMg-7jZYUyk9Qpib7Xmi1hyYbzRU/exec"
+const API="https://script.google.com/macros/s/AKfycbw_TxUk_XDnVgpkR5wprnzBAyLOW4D1_R98USUTeS-Qj2z0c-ff0MKgPj86UKJwlMeC/exec?mode=calendar"
 
 let monthlyData={}
 let current=new Date()
