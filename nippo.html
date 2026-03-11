@@ -17,7 +17,6 @@ body {
   text-align: center;
   position: relative;
 }
-
 body::before {
   content: "";
   position: absolute;
@@ -28,60 +27,54 @@ body::before {
   background: rgba(0, 0, 0, 0.45);
   z-index: -1;
 }
-
 h1 {
   font-size: 60px;
   margin-top: 60px;
   text-shadow: 0 4px 8px black;
 }
-
 form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 30px;
+  gap: 20px;
   margin-top: 60px;
   padding: 0 20px;
 }
-
 input {
   width: 90%;
   max-width: 600px;
-  padding: 26px;
+  padding: 20px;
   font-size: 28px;
   border-radius: 14px;
   border: none;
   text-align: center;
 }
-
 button {
   width: 90%;
   max-width: 600px;
-  padding: 40px 0;
-  font-size: 34px;
+  padding: 30px 0;
+  font-size: 32px;
   font-weight: bold;
   background: rgba(76, 175, 80, 0.9);
   color: white;
   border: none;
   border-radius: 18px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
   cursor: pointer;
 }
-
 button:hover {
   background: rgba(69, 160, 73, 1);
 }
-
 .back-btn {
   position: fixed;
   bottom: 20px;
   right: 20px;
   width: 40%;
   max-width: 300px;
-  padding: 25px 0;
+  padding: 20px 0;
   font-size: 24px;
   font-weight: bold;
-  background: rgba(76, 175, 80, 0.9);
+  background: rgba(76,175,80,0.9);
   color: white;
   text-decoration: none;
   border-radius: 18px;
@@ -111,9 +104,9 @@ const API1 = "https://script.google.com/macros/s/AKfycbzpR7jky_g3gMvDPbWQVadHxiX
 // URLから日付取得
 const params = new URLSearchParams(location.search);
 const date = params.get("date");
-if (date) document.getElementById("date").value = date;
+if(date) document.getElementById("date").value = date;
 
-// 送信
+// 送信処理
 document.getElementById("form").addEventListener("submit", e => {
   e.preventDefault();
 
@@ -137,13 +130,14 @@ document.getElementById("form").addEventListener("submit", e => {
   .then(res => {
     if(res.status === "ok"){
       alert("保存しました");
-      location.href = "monthly.html";
+      location.href = "monthly.html"; // 保存後に月間ページへ戻る
     } else {
       alert("保存に失敗しました");
     }
   })
-  .catch(() => {
-    alert("送信エラー");
+  .catch(err => {
+    console.error(err);
+    alert("送信エラー (CORS 対応済み GAS を確認)");
   });
 });
 </script>
