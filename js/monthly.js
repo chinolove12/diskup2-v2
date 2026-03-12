@@ -95,6 +95,20 @@ else html+=`<th>${d}</th>`
 
 html+="</tr><tr>"
 
+
+/* 給料日計算 */
+
+let salaryDay=20
+let salaryDate=new Date(currentYear,currentMonth,20)
+
+while(salaryDate.getDay()===0 || salaryDate.getDay()===6){
+salaryDate.setDate(salaryDate.getDate()-1)
+}
+
+const salaryStr=
+`${salaryDate.getFullYear()}-${String(salaryDate.getMonth()+1).padStart(2,"0")}-${String(salaryDate.getDate()).padStart(2,"0")}`
+
+
 for(let i=0;i<startWeek;i++){
 html+="<td></td>"
 }
@@ -116,18 +130,22 @@ if(dateStr===todayStr){
 cellClass+=" today"
 }
 
+if(dateStr===salaryStr){
+cellClass+=" salary"
+}
+
 if(diff!==undefined){
 
 const sign=diff>0?"+":""
 
 if(diff>0){
 profitHTML=`<div class="profit plus">${sign}${diff}</div>`
-cellClass="win"
+cellClass+=" win"
 }
 
 else if(diff<0){
 profitHTML=`<div class="profit minus">${diff}</div>`
-cellClass="lose"
+cellClass+=" lose"
 }
 
 else{
@@ -154,6 +172,7 @@ html+="</tr><tr>"
 html+="</tr>"
 
 document.getElementById("calendar").innerHTML=html
+
 
 /* ======================
    月収支・勝率計算
@@ -184,6 +203,7 @@ const winRate=playDays?Math.round(winDays/playDays*100):0
 
 document.getElementById("monthTotal").textContent=`月収支：${total}`
 document.getElementById("winRate").textContent=`勝率：${winRate}%`
+
 }
 
 
@@ -255,5 +275,6 @@ beginAtZero:true
 })
 
 }
+
 document.getElementById("prev").addEventListener("click", prevMonth)
 document.getElementById("next").addEventListener("click", nextMonth)
