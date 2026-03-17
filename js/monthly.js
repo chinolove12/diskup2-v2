@@ -213,66 +213,77 @@ document.getElementById("winRate").textContent=`勝率：${winRate}%`
 
 function drawGraph(){
 
-const labels=["0"]
-const values=[0]
+    const labels = ["0"]
+    const values = [0]
 
-let total=0
+    let total = 0
 
-Object.keys(monthlyData)
-.sort()
-.forEach(d=>{
+    Object.keys(monthlyData)
+    .sort()
+    .forEach(d => {
 
-if(d.startsWith(`${currentYear}-${String(currentMonth+1).padStart(2,"0")}`)){
+        if(d.startsWith(`${currentYear}-${String(currentMonth+1).padStart(2,"0")}`)){
 
-const day=d.slice(8)
+            const day = d.slice(8)
 
-total+=Number(monthlyData[d])
+            total += Number(monthlyData[d])
 
-labels.push(day)
-values.push(total)
+            labels.push(day)
+            values.push(total)
+        }
+    })
 
-}
+    // ===== ここ追加（0中心のための計算）=====
+    let max = Math.max(...values)
+    let min = Math.min(...values)
+    let maxAbs = Math.max(Math.abs(max), Math.abs(min))
 
-})
+    // 全部0だった場合の保険
+    if(maxAbs === 0){
+        maxAbs = 1
+    }
+    // =======================================
 
-const ctx=document.getElementById("chart")
+    const ctx = document.getElementById("chart")
 
-if(chart){
-chart.destroy()
-}
+    if(chart){
+        chart.destroy()
+    }
 
-chart=new Chart(ctx,{
+    chart = new Chart(ctx,{
 
-type:"line",
+        type:"line",
 
-data:{
-labels:labels,
-datasets:[{
-label:"累計差枚",
-data:values,
-tension:0.3,
-fill:false
-}]
-},
+        data:{
+            labels:labels,
+            datasets:[{
+                label:"累計差枚",
+                data:values,
+                tension:0.3,
+                fill:false
+            }]
+        },
 
-options:{
-responsive:true,
+        options:{
+            responsive:true,
 
-plugins:{
-legend:{
-display:false
-}
-},
+            plugins:{
+                legend:{
+                    display:false
+                }
+            },
 
-scales:{
-y:{
-beginAtZero:true
-}
-}
+            scales:{
+                y:{
+                    // ★ここが今回の肝
+                    min: -maxAbs,
+                    max: maxAbs
+                }
+            }
 
-}
+        }
 
-})
+    })
 
 }
 
