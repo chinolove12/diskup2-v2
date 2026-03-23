@@ -22,7 +22,7 @@ fetch(API_SUMMARY)
     
         if(typeof val === "number"){
           if(key === "totalBita"){
-            val = Math.round(val * 100);
+            val = Math.round(val * 100) + "%";
           }else{
             val = Math.round(val);
           }
