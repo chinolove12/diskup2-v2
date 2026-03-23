@@ -1,8 +1,11 @@
 const API_URL="https://script.google.com/macros/s/AKfycbx6YwdFjjnO8h9prGPlLeAZX97XUblQUDItY8NV2e-5zLNq6n-ouFUww4aZLf7bMhcw/exec?mode=records"
 
 let records=[]
+let isSending = false; // 送信中フラグ
 
 function addRecord(){
+
+if (isSending) return; // 送信中は無視
 
 const spin=document.getElementById("spin").value
 const role=document.getElementById("role").value
@@ -14,13 +17,17 @@ alert("回転数 と 当選役 は必須です")
 return
 }
 
-const data={
-  mode: "records", // ここが必須
-spin:Number(spin),
-role:role,
-triggers:triggers,
-memo:memo
-}
+  const data={
+    mode: "records", // ここが必須
+    spin:Number(spin),
+    role:role,
+    triggers:triggers,
+    memo:memo
+  }
+
+  isSending = true; // 送信中フラグON
+  const button = document.querySelector("button[onclick='addRecord()']")
+  button.disabled = true // ボタン無効化
 
 fetch(API_URL,{
 method:"POST",
@@ -30,7 +37,10 @@ body:JSON.stringify(data)
 clearInput()
 loadRecords()
 })
-
+  .finally(() => {
+    isSending = false; // フラグOFF
+    button.disabled = false // ボタン有効化
+  })
 }
 
 function clearInput(){
