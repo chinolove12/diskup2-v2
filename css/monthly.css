@@ -131,6 +131,12 @@ font-size:12px;
 font-size:14px;
 }
 
+.summary .row{
+  display:flex;
+  justify-content:space-around;
+  margin-bottom:8px;
+}
+
 .profit{
 font-size:11px;
 }
