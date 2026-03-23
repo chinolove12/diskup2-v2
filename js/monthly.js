@@ -29,8 +29,6 @@ if(!monthlyExpectedData[d.date]){
 }
 
 monthlyData[d.date]+=Number(d.diff)
-
-monthlyData[d.date]+=Number(d.diff)
 monthlyExpectedData[d.date]+=Number(d.expected)
 
 })
