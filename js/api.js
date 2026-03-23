@@ -28,6 +28,8 @@ return
   isSending = true; // 送信中フラグON
   const button = document.querySelector("button[onclick='addRecord()']")
   button.disabled = true // ボタン無効化
+  const originalText = button.textContent
+  button.textContent = "送信中…" // ボタンテキスト変更
 
 fetch(API_URL,{
 method:"POST",
@@ -40,6 +42,7 @@ loadRecords()
   .finally(() => {
     isSending = false; // フラグOFF
     button.disabled = false // ボタン有効化
+    button.textContent = originalText // 元のテキストに戻す
   })
 }
 
