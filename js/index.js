@@ -19,7 +19,15 @@ fetch(API_SUMMARY)
     keys.forEach((key, i) => {
       if(cards[i]){
         let val = summary[key];
-        if(typeof val === "number") val = val.toFixed(2);
+    
+        if(typeof val === "number"){
+          if(key === "totalBita"){
+            val = Math.round(val * 100);
+          }else{
+            val = Math.round(val);
+          }
+        }
+    
         cards[i].innerHTML = `${cards[i].textContent.split(":")[0]}: ${val}`;
       }
     });
