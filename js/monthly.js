@@ -223,7 +223,7 @@ const winRate=playDays?Math.round(winDays/playDays*100):0
 
 document.getElementById("monthTotal").textContent=`月収支：${total}`
 document.getElementById("winRate").textContent=`勝率：${winRate}%`
-
+document.getElementById("playDays").textContent=`稼働日数：${playDays}`
 }
 
 
