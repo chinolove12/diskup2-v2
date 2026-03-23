@@ -221,9 +221,10 @@ if(d.startsWith(`${currentYear}-${String(currentMonth+1).padStart(2,"0")}`)){
 
 const winRate=playDays?Math.round(winDays/playDays*100):0
 
-document.getElementById("monthTotal").textContent=`月収支：${total}`
+document.getElementById("monthTotal").textContent=`月収支：${total}枚`
 document.getElementById("winRate").textContent=`勝率：${winRate}%`
-document.getElementById("playDays").textContent=`稼働日数：${playDays}`
+document.getElementById("expectedTotal").textContent=`月期待値：${expectedTotal}枚`
+document.getElementById("playDays").textContent=`稼働日数：${playDays}日`
 }
 
 
