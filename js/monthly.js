@@ -1,7 +1,8 @@
-const API="https://script.google.com/macros/s/AKfycbxl0ldOB2HGrjexrD_55zj62MqC5YIOPnyiYa5BJ4OzGiXV7rs-SNk3Uz4p1huZW5fV/exec?mode=calendar";
+const API="https://script.google.com/macros/s/AKfycbyf4K0tQPxfGK7DeCY3dhAUKVDD-QTPND4QRDfUpIWf0lh1HJoZVl7lvXsZU-Fd3Co/exec?mode=calendar";
 
 let monthlyData={}
 let monthlyExpectedData = {}
+let monthlyGameData = {}
 
 let currentDate=new Date()
 let currentYear=currentDate.getFullYear()
@@ -28,6 +29,11 @@ if(!monthlyExpectedData[d.date]){
   monthlyExpectedData[d.date]=0
 }
 
+if(!monthlyGameData[d.date]){
+  monthlyGameData[d.date]=0
+}
+
+monthlyGameData[d.date]+=Number(d.game)
 monthlyData[d.date]+=Number(d.diff)
 monthlyExpectedData[d.date]+=Number(d.expected)
 
@@ -217,12 +223,25 @@ if(d.startsWith(`${currentYear}-${String(currentMonth+1).padStart(2,"0")}`)){
 
 })
 
+let totalGame = 0
+
+Object.keys(monthlyGameData).forEach(d=>{
+
+if(d.startsWith(`${currentYear}-${String(currentMonth+1).padStart(2,"0")}`)){
+
+  totalGame += Number(monthlyGameData[d])
+
+}
+
+})
+
 const winRate=playDays?Math.round(winDays/playDays*100):0
 
 document.getElementById("monthTotal").textContent=`月収支：${total}枚`
 document.getElementById("winRate").textContent=`勝率：${winRate}%`
 document.getElementById("expectedTotal").textContent=`月期待値：${Math.round(expectedTotal)}枚`
 document.getElementById("playDays").textContent=`稼働日数：${playDays}日`
+document.getElementById("totalGame").textContent=`月総ゲーム数：${totalGame}G`
 }
 
 
