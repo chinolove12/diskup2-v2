@@ -1,6 +1,7 @@
-const API="https://script.google.com/macros/s/AKfycbw_TxUk_XDnVgpkR5wprnzBAyLOW4D1_R98USUTeS-Qj2z0c-ff0MKgPj86UKJwlMeC/exec?mode=calendar";
+const API="https://script.google.com/macros/s/AKfycbxl0ldOB2HGrjexrD_55zj62MqC5YIOPnyiYa5BJ4OzGiXV7rs-SNk3Uz4p1huZW5fV/exec?mode=calendar";
 
 let monthlyData={}
+let monthlyExpectedData = {}
 
 let currentDate=new Date()
 let currentYear=currentDate.getFullYear()
@@ -23,7 +24,14 @@ if(!monthlyData[d.date]){
 monthlyData[d.date]=0
 }
 
+if(!monthlyExpectedData[d.date]){
+  monthlyExpectedData[d.date]=0
+}
+
 monthlyData[d.date]+=Number(d.diff)
+
+monthlyData[d.date]+=Number(d.diff)
+monthlyExpectedData[d.date]+=Number(d.expected)
 
 })
 
@@ -71,6 +79,8 @@ drawGraph()
 ====================== */
 
 function drawCalendar(){
+
+let expectedTotal = 0
 
 const first=new Date(currentYear,currentMonth,1)
 const last=new Date(currentYear,currentMonth+1,0)
@@ -194,6 +204,16 @@ playDays++
 if(diff>0){
 winDays++
 }
+
+}
+
+})
+
+Object.keys(monthlyExpectedData).forEach(d=>{
+
+if(d.startsWith(`${currentYear}-${String(currentMonth+1).padStart(2,"0")}`)){
+
+  expectedTotal += Number(monthlyExpectedData[d])
 
 }
 
