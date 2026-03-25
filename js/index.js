@@ -25,7 +25,6 @@ fetch(API_SUMMARY)
             val = Math.round(val * 100) + "%";
           }else if(key === "totalBIGRate" || key === "totalREGRate"){
             val = "1/" + Math.round(val); // 例：1/200
-          }
           }else{
             val = Math.round(val);
           }
