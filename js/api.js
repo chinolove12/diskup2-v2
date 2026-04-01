@@ -132,6 +132,9 @@ const expectedReg = totalGames / AVG_REG
 const diffBig = bigCount - expectedBig
 const diffReg = regCount - expectedReg
 
+const AVG_BIG = 287;
+const AVG_REG = 496;
+
 function formatDiff(diff){
   if(!isFinite(diff)) return "-"
   if(diff === 0) return "±0"
