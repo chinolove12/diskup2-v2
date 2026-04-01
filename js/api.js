@@ -116,6 +116,9 @@ updateStatus()
 
 function updateStatus(){
 
+const AVG_BIG = 287;
+const AVG_REG = 496;
+
 const totalGames=records.reduce((s,r)=>s+Number(r.spin),0)
 
 const bigCount=records.filter(r=>r.role.includes("BIG")).length
@@ -132,8 +135,7 @@ const expectedReg = totalGames / AVG_REG
 const diffBig = bigCount - expectedBig
 const diffReg = regCount - expectedReg
 
-const AVG_BIG = 287;
-const AVG_REG = 496;
+
 
 function formatDiff(diff){
   if(!isFinite(diff)) return "-"
