@@ -124,10 +124,24 @@ const regCount=records.filter(r=>r.role==="REG").length
 const bigProb=bigCount?`1/${Math.round(totalGames/bigCount)}`:"-"
 const regProb=regCount?`1/${Math.round(totalGames/regCount)}`:"-"
 
+// ★ 期待回数
+const expectedBig = totalGames / AVG_BIG
+const expectedReg = totalGames / AVG_REG
+
+// ★ 差分（ここが本質）
+const diffBig = bigCount - expectedBig
+const diffReg = regCount - expectedReg
+
+function formatDiff(diff){
+  if(!isFinite(diff)) return "-"
+  if(diff === 0) return "±0"
+  return (diff > 0 ? "+" : "") + diff.toFixed(2)
+}
+
 document.getElementById("status").innerHTML=
 `合計ゲーム数：${totalGames}<br>
-BIG合計：${bigCount}<br>
-REG合計：${regCount}<br>
+BIG合計：${bigCount} (${formatDiff(diffBig)})<br>
+REG合計：${regCount} (${formatDiff(diffReg)})<br>
 BIG確率：${bigProb}<br>
 REG確率：${regProb}`
 
